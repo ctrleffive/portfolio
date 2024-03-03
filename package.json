@@ -1,8 +1,9 @@
 {
-  "name": "chronark.com",
+  "name": "chandujs.com",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "contentlayer": "contentlayer",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

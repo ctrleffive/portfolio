@@ -22,9 +22,6 @@ export const Project = defineDocumentType(() => ({
 	contentType: "mdx",
 
 	fields: {
-		published: {
-			type: "boolean",
-		},
 		title: {
 			type: "string",
 			required: true,
@@ -41,6 +38,9 @@ export const Project = defineDocumentType(() => ({
 		},
 		repository: {
 			type: "string",
+		},
+		featuredOrder: {
+			type: "number",
 		},
 	},
 	computedFields,

@@ -2,27 +2,23 @@ import "../global.css";
 import { Inter } from "@next/font/google";
 import LocalFont from "@next/font/local";
 import { Metadata } from "next";
-import { Analytics } from "./components/analytics";
+
+const url = "https://chandujs.com"
+const title = "Chandu J S"
+const description = "Software developer & problem solver. Building apps that pop and forever chasing stars."
 
 export const metadata: Metadata = {
   title: {
-    default: "chronark.com",
-    template: "%s | chronark.com",
+    default: title,
+    template: `%s | ${title}`,
   },
-  description: "Co-founder of unkey.dev and founder of planetfall.io",
+  description,
   openGraph: {
-    title: "chronark.com",
-    description:
-      "Co-founder of unkey.dev and founder of planetfall.io",
-    url: "https://chronark.com",
-    siteName: "chronark.com",
-    images: [
-      {
-        url: "https://chronark.com/og.png",
-        width: 1920,
-        height: 1080,
-      },
-    ],
+    url,
+    title,
+    description,
+    siteName: title,
+    images: [],
     locale: "en-US",
     type: "website",
   },
@@ -38,7 +34,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Chronark",
+    title: "chandujs",
     card: "summary_large_image",
   },
   icons: {
@@ -62,9 +58,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={[inter.variable, calSans.variable].join(" ")}>
-      <head>
-        <Analytics />
-      </head>
       <body
         className={`bg-black ${process.env.NODE_ENV === "development" ? "debug-screens" : undefined
           }`}
