@@ -5,42 +5,48 @@ import { Header } from "./header";
 import "./mdx.css";
 import { ReportView } from "./view";
 import { Redis } from "@upstash/redis";
+import Link from "next/link";
 
 export const revalidate = 60;
 
 type Props = {
-	params: {
-		slug: string;
-	};
+  params: {
+    slug: string;
+  };
 };
 
 const redis = Redis.fromEnv();
 
 export async function generateStaticParams(): Promise<Props["params"][]> {
-	return allProjects.map((p) => ({
-		slug: p.slug,
-	}));
+  return allProjects.map((p) => ({
+    slug: p.slug,
+  }));
 }
 
 export default async function PostPage({ params }: Props) {
-	const slug = params?.slug;
-	const project = allProjects.find((project) => project.slug === slug);
+  const slug = params?.slug;
+  const project = allProjects.find((project) => project.slug === slug);
 
-	if (!project) {
-		notFound();
-	}
+  if (!project) {
+    notFound();
+  }
 
-	const views =
-		(await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
+  const views =
+    (await redis.get<number>(["pageviews", "projects", slug].join(":"))) ?? 0;
 
-	return (
-		<div className="bg-zinc-50 min-h-screen">
-			<Header project={project} views={views} />
-			<ReportView slug={project.slug} />
+  return (
+    <div className="bg-zinc-50 min-h-screen">
+      <Header project={project} views={views} />
+      <ReportView slug={project.slug} />
 
-			<article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
-				<Mdx code={project.body.code} />
-			</article>
-		</div>
-	);
+      <article className="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
+        <Mdx code={project.body.code} />
+        <div className="mt-14 md:mt-28 border-l-4 border-zinc-300 pl-6 italic text-zinc-800">
+          If you have any questions, please{" "}
+          <Link href="/contact">reach out</Link> me. I'll be more than happy to
+          answer your questions.
+        </div>
+      </article>
+    </div>
+  );
 }
